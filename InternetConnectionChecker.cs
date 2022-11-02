@@ -39,10 +39,10 @@ public class InternetConnectionChecker
                 }
                 token.ThrowIfCancellationRequested();
                 //any dns active or all fail
-                while(!dnsActive || count != dnsCollection.Count)
+                while(!dnsActive && count != dnsCollection.Count)
                 {
-                    //stop every 0.5 sec
-                    await Task.Delay(500);
+                    //stop every 0.05 sec
+                    await Task.Delay(50);
                     //stop waiting if operation canceled from code
                     token.ThrowIfCancellationRequested();
                 }             
@@ -66,9 +66,9 @@ public class InternetConnectionChecker
                         }, token);
                     }
                     token.ThrowIfCancellationRequested();
-                    while (!urlActive || count != urlCollection.Count)
+                    while (!urlActive && count != urlCollection.Count)
                     {
-                        await Task.Delay(500);
+                        await Task.Delay(100);
                         token.ThrowIfCancellationRequested();
                     }                   
                     if (urlActive)
